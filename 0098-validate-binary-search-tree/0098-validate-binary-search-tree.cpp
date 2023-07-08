@@ -10,30 +10,18 @@
  * };
  */
 class Solution {
-    private:
-    bool ans=true;
 public:
-    void helper(TreeNode * root,long &temp)
+    bool helper(TreeNode * root, long min, long max)
     {
         if(root == NULL) 
-            return;
+            return true;
+        if(root->val >=max  || root->val <= min) return false;
         
-        helper(root->left,temp);
-         if(temp >= root->val)
-                {
-                    ans=false;
-                    return;
-                }
-        else
-            temp=root->val;
-        helper(root->right,temp);
-        
-        
+        return helper(root->left,min,root->val) && helper(root->right,root->val,max); 
     }
     bool isValidBST(TreeNode* root) {
         
-        long temp=LONG_MIN;
-        helper(root,temp);
-        return ans;
+        return helper(root,LONG_MIN,LONG_MAX);
+        
     }
 };
