@@ -16,12 +16,7 @@ public:
         for(int i=0;i<n;i++)
         {
             int a=k-arr[i];
-            
-            if( mp.find(a) != mp.end() )
-            {
-                ans+=mp[a];
-            }
-            
+            ans+=mp[a];
             mp[arr[i]]++;
         }
         
