@@ -18,6 +18,7 @@ public:
                 start=it;
                 while(present[start])
                 {
+                    checked[start]=true;
                     current++;
                     start++;
                 }
