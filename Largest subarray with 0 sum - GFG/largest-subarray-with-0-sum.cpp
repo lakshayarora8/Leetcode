@@ -12,34 +12,30 @@ class Solution{
     public:
     int maxLen(vector<int>&A, int n)
     {   
-        unordered_map<int,int> start,end;
+        vector<int> prefix(n,0);
         
-        vector<int>  prefix(n,0);
         prefix[0]=A[0];
         for(int i=1;i<n;i++)
-        {
-            prefix[i]=prefix[i-1]+A[i];
-        }
+        prefix[i]=prefix[i-1]+A[i];
+        
+        unordered_map<int,int> mp;
+        int ans=0;
         for(int i=0;i<n;i++)
         {
-            if(!start[prefix[i]])
-            start[prefix[i]]=i+1;
-        }
-        for(int i=n-1;i>=0;i--)
-        {
-            if(!end[prefix[i]])
-            end[prefix[i]]=i+1;
+            if( prefix[i] == 0 )
+            ans=i+1;
+            else if(!mp[prefix[i]])
+            {
+                mp[prefix[i]]=i+1;
+            }
+            else
+            {  
+                ans=max(ans, i+1 - mp[prefix[i]]);
+            }
         }
         
-        int ans=0;
-        
-        for(auto it:prefix)
-        {
-            if( start[it] && end[it])
-            ans= max(ans, end[it]-start[it]);
-        }
-        ans=max(ans,end[0]);
         return ans;
+        
         
     }
 };
